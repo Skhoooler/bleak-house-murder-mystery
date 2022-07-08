@@ -49,11 +49,13 @@ def main():
     print()
     for clue in engine.clues:
         print(clue)
+        time.sleep(2)
 
     time.sleep(1)
     print()
     print("We brought all of the suspects for you to question.")
 
+    
     time.sleep(1)
     questioning = True
 
@@ -69,27 +71,118 @@ def main():
         try:
             print()
             person = int(input("Who would you like to speak to? "))
+            print()
 
             match person:
                 case 1:
-                    return engine.dedlock.question
+                    if (engine.murderer == engine.dedlock):
+                        engine.dedlock.question(True)
+                    else:
+                        engine.dedlock.question(False)
                 case 2:
-                    return engine.george.question
+                    if (engine.murderer == engine.george):
+                        engine.george.question(True)
+                    else:
+                        engine.george.question(False)
                 case 3:
-                    return engine.smallweed.question
+                    if (engine.murderer == engine.smallweed):
+                        engine.smallweed.question(True)
+                    else:
+                        engine.smallweed.question(False)
                 case 4:
-                    return engine.hortense.question
+                    if (engine.murderer == engine.hortense):
+                        engine.hortense.question(True)
+                    else:
+                        engine.hortense.question(False)
                 case 5:
-                    return engine.esther.question
+                    if (engine.murderer == engine.esther):
+                        engine.esther.question(True)
+                    else:
+                        engine.esther.question(False)
                 case 6:
-                    questioning = False
-                    return 
+                    confirm = input("Alright Inspector Bucket, are you ready to name the murderer? (Y/N)")
+
+                    if (confirm == "Y" or confirm == "y" or confirm == "N" or confirm == "n"):
+                        if (confirm == "Y" or confirm == "y"):
+                            questioning = False
+                            break
+                        else:
+                            print("Ok. I'll bring the suspects back out.")
+                            questioning = True
+                    else:
+                        print("Could you say that one more time Inspector Bucket? I couldn't understand you.")
+                        questioning = True
         
         except ValueError:
             print()
-            print("Please tell me who you would like to talk to (type in 1-6)")
-
+            print("Please tell me who you would like to speak to. (type in 1-6)")
+        
+        #questioning = True
     
+    print("Here are our suspects: ")
+    print()
+    print("1 - Lady Dedlock")
+    print("2 - Mr. George")
+    print("3 - Grandfather Smallweed")
+    print("4 - Mademoiselle Hortense")
+    print("5 - Esther Summerson")
+    print()
+    print("It is up to you to decide who the murderer is, Inspector Bucket.")
+
+    murderer = 0
+    deciding = True
+    while deciding:
+        try:
+            murderer = int(input("Who murdered Mr. Tulkinghorn? "))
+            print()
+            if (murderer == 1):
+                murderer = "Lady Dedlock"
+                print(engine.dedlock.accused)
+                time.sleep(2)
+                print()
+                break
+            elif (murderer == 2):
+                murderer = "Mr. George"
+                print(engine.george.accused)
+                time.sleep(2)
+                print()
+                break
+            elif (murderer == 3):
+                murderer = "Grandfather Smallweed"
+                print(engine.smallweed.accused)
+                time.sleep(2)
+                print()
+                break
+            elif (murderer == 4):
+                murderer = "Mademoiselle Hortense"
+                print(engine.hortense.accused)
+                time.sleep(2)
+                print()
+                break
+            elif (murderer == 5):
+                murderer = "Esther Summerson"
+                print(engine.esther.accused)
+                time.sleep(2)
+                print()
+                break
+            else:
+                print("We can't understand you. Please speak up.")
+                continue
+
+        except:
+            print("Please speak up Inspector Bucket, we can't understand.")
+            continue
+
+    print("...")
+    time.sleep(1)
+    print("So you say " + murderer + " is the murderer?")
+    time.sleep(1)
+    print("...")
+    time.sleep(1)
+    print()
+    print(engine.murderer.name + " was the true murderer...")
+    time.sleep(2)
+    print("fin")
 
 if __name__ == "__main__":
     main()
